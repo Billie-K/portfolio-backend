@@ -13,13 +13,29 @@ dbConnect().then(() => {
 const userRoutes = require('./routes/userRoutes');
 const cvRoutes = require('./routes/cvRoutes');
 const portfolioRoutes = require('./routes/portfolioRoutes');
+const homeRoutes = require('./routes/homeRoutes');
 
 app.use(express.json());
+
+// Enable CORS middleware
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000'); // Replace with your frontend URL
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
 
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/cvs', cvRoutes);
 app.use('/api/portfolios', portfolioRoutes);
+app.use('/api', homeRoutes);
 app.all('*', (req, res) => {
 	res.status(404).json({ message: 'Resource not found' });
 });
