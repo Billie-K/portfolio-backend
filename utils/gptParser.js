@@ -1,13 +1,11 @@
+require('dotenv').config();
 const axios = require('axios');
 const OpenAI = require("openai");
 
-
-
-const OPENAI_API_KEY = 'sk-proj-sJRYJyje0tMyKzP0hp98T3BlbkFJBYbKT6fzy2cyW6xBZpU1'; // Replace with your OpenAI API key
 const OPENAI_ENGINE = 'davinci-codex'; // GPT-4 model fine-tuned for code and document processing
 
 const client = new OpenAI({
-    apiKey: OPENAI_API_KEY,
+    apiKey: process.env.OPENAI_API_KEY,
   });
 
 async function extractCVDataFromPDF(pdfText) {
