@@ -6,7 +6,6 @@ const multer = require('multer');
 const storage = multer.memoryStorage(); // Store files in memory buffer
 const upload = multer({ storage: storage });
 const fs = require('fs');
-const { extractCVDataFromPDF } = require('../utils/gptParser');
 const path = require('path');
 
 // Define paths to the example files
@@ -46,23 +45,6 @@ const getCV = async (req, res) => {
   }
 };
 
-// Parse CV with chatGPT
-const gptParse = async (req, res) => {
-  try {
-    // Read the PDF file
-    const pdfBuffer = fs.readFileSync('example.pdf', { encoding: null }); // Use { encoding: null } to read as buffer
-
-    // Convert buffer to base64 (required by OpenAI API)
-    const pdfBase64 = Buffer.from(pdfBuffer).toString('base64');
-
-    // Request CV data extraction from GPT
-    const extractedData = await extractCVDataFromPDF(pdfBase64);
-
-    console.log('Extracted CV Data:\n', extractedData);
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
 
 const mlParsePDF = async (req, res) => {
   try {
@@ -88,4 +70,4 @@ const mlParseDOCX = async (req, res) => {
   }
 }
 
-module.exports = {uploadCV, getCV, gptParse, mlParsePDF, mlParseDOCX}
+module.exports = {uploadCV, getCV, mlParsePDF, mlParseDOCX}
