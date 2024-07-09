@@ -5,7 +5,7 @@ const OpenAI = require("openai");
 const OPENAI_ENGINE = 'davinci-codex'; // GPT-4 model fine-tuned for code and document processing
 
 const client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: process.env.OPENAI_API_USER_KEY,
   });
 
 async function extractCVDataFromPDF(pdfText) {
