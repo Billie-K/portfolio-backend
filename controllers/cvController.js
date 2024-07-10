@@ -67,6 +67,7 @@ const mlParseDOCX = async (req, res) => {
     res.json(data)
   } catch (error) {
     console.error('Error', error)
+    res.error(error)
   }
 }
 

@@ -7,7 +7,7 @@ async function mlPdfParser(filePath) {
         const form = new FormData();
         form.append('file', fs.createReadStream(filePath));
 
-        const response = await axios.post('http://localhost:5000/parse-pdf', form, {
+        const response = await axios.post('https://portfoldevops.pythonanywhere.com/parse-pdf', form, {
             headers: form.getHeaders()
         });
 
