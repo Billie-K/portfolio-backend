@@ -1,5 +1,6 @@
 const express = require('express');
 const { dbConnect } = require('./config/db');
+const path = require('path');
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/cvs', cvRoutes);
 app.use('/api/portfolios', portfolioRoutes);
 app.use('/api', homeRoutes);
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 app.all('*', (req, res) => {
 	res.status(404).json({ message: 'Resource not found' });
 });

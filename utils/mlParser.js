@@ -1,22 +1,20 @@
 const fs = require('fs');
 const axios = require('axios');
 const FormData = require('form-data');
+require('dotenv').config();
 
 async function mlPdfParser(filePath) {
     try {
         const form = new FormData();
         form.append('file', fs.createReadStream(filePath));
 
-        const response = await axios.post('https://portfoldevops.pythonanywhere.com/parse-pdf', form, {
+        const response = await axios.post(process.env.ML_API, form, {
             headers: form.getHeaders()
         });
-
-        // console.log('Parsed PDF Text:\n', response.data.text);
-        // console.log('Extracted Entities:\n', response.data.entities); 
-
         return response.data;
     } catch (error) {
         console.error('Error parsing PDF:', error.message);
+        throw error;
     }
 }
 

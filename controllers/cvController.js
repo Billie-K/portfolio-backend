@@ -54,7 +54,9 @@ const mlParsePDF = async (req, res) => {
 
     const filePath = req.file.path; // Assuming req.file.path contains the file path
     const data = await mlPdfParser(filePath);
-    res.status(201).json(data);
+    if (data) {
+      res.status(201).json(data);
+    }
   } catch (error) {
     console.error('Error parsing PDF:', error);
     res.status(500).json({ message: 'Error parsing PDF', error: error.message });
