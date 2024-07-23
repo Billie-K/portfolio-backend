@@ -4,7 +4,8 @@ const {generateUniqueSlug} = require('../utils/generateUniqueSlug')
 exports.createPortfolio = async (req, res) => {
   try {
     // const { userId } = req.user;
-    let { fullName, email, phone, experience, education, skills, certifications, bio } = req.body;
+    let { fullName, email, phone, experience, education, skills, 
+      certifications, bio, facebook, instagram, linkedin, x } = req.body;
     const slug = await generateUniqueSlug(fullName, Portfolio);
 
     const avatar = req.file ? req.file.path : null;
@@ -21,7 +22,11 @@ exports.createPortfolio = async (req, res) => {
       skills,
       bio,
       certifications,
-      avatar
+      avatar, 
+      facebook,
+      linkedin, 
+      instagram,
+      x,
     });
     await newPortfolio.save();
 

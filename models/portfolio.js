@@ -18,6 +18,10 @@ const PortfolioSchema = new Schema({
   certifications: String,
   avatar: String,
   bio: String,
+  facebook: String,
+  linkedin: String,
+  x: String,
+  instagram: String,
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now }
 });
