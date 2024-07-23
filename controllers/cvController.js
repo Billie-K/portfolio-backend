@@ -1,5 +1,5 @@
 const CV = require('../models/cv');
-const { mlPdfParser, mlDocxParser } = require('../utils/mlParser'); 
+const { mlPdfParser, mlDocxParser, gptPdfParser } = require('../utils/mlParser'); 
 
 // Example middleware for handling file uploads with multer
 const multer = require('multer');
@@ -63,6 +63,21 @@ const mlParsePDF = async (req, res) => {
   }
 }
 
+const gptParsePDF = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    const filePath = req.file.path;
+    const data = await gptPdfParser(filePath);
+    res.status(201).json(data);
+  } catch (error) {
+    console.error('Error parsing PDF:', error.message);
+    res.status(500).json({ message: 'Error parsing PDF', error: error.message });
+  }
+};
+
 const mlParseDOCX = async (req, res) => {
   try {
     const data = await mlDocxParser(docxFilePath);
@@ -73,4 +88,4 @@ const mlParseDOCX = async (req, res) => {
   }
 }
 
-module.exports = {uploadCV, getCV, mlParsePDF, mlParseDOCX}
+module.exports = {uploadCV, getCV, mlParsePDF, mlParseDOCX, gptParsePDF}

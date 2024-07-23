@@ -24,7 +24,8 @@ const upload = multer({ storage: storage });
 
 router.post('/upload', upload.single('file'), cvController.uploadCV);
 router.get('/', authMiddleware, cvController.getCV);
-router.post('/ml-parse-pdf', upload.single('file'), cvController.mlParsePDF);
+// router.post('/ml-parse-pdf', upload.single('file'), cvController.mlParsePDF);
+router.post('/ml-parse-pdf', upload.single('file'), cvController.gptParsePDF);
 router.get('/ml-parse-docx', cvController.mlParseDOCX);
 
 module.exports = router;

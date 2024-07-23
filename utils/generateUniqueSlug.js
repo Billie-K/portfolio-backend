@@ -11,9 +11,20 @@ async function generateUniqueSlug(name, model) {
   let slugExists = await model.findOne({ slug });
   let counter = 1;
 
+  // Regular expression to match slugs ending with a number
+  const numberSuffixRegex = /-(\d+)$/;
+
   // Append a counter to the slug until a unique one is found
   while (slugExists) {
-    slug = `${slug}-${counter}`;
+    const match = numberSuffixRegex.exec(slugExists.slug);
+    if (match) {
+      // Increment the number suffix
+      counter = parseInt(match[1], 10) + 1;
+      slug = slug.replace(numberSuffixRegex, `-${counter}`);
+    } else {
+      // Append a counter if no number suffix is found
+      slug = `${slug}-${counter}`;
+    }
     slugExists = await model.findOne({ slug });
     counter++;
   }
@@ -21,4 +32,4 @@ async function generateUniqueSlug(name, model) {
   return slug;
 }
 
-module.exports = {generateUniqueSlug}
+module.exports = { generateUniqueSlug };

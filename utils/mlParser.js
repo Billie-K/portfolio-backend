@@ -18,6 +18,22 @@ async function mlPdfParser(filePath) {
     }
 }
 
+async function gptPdfParser(filePath) {
+  try {
+    const form = new FormData();
+    form.append('file', fs.createReadStream(filePath));
+
+    const response = await axios.post(process.env.ML_API, form, {
+      headers: form.getHeaders()
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error parsing PDF:', error.message);
+    throw error;
+  }
+}
+
 async function mlDocxParser(filePath) {
     try {
         const form = new FormData();
@@ -36,5 +52,5 @@ async function mlDocxParser(filePath) {
     }
 }
 
-module.exports = { mlPdfParser, mlDocxParser };
+module.exports = { mlPdfParser, mlDocxParser, gptPdfParser };
 
