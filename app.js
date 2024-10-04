@@ -14,9 +14,13 @@ dbConnect().then(() => {
 const userRoutes = require('./routes/userRoutes');
 const cvRoutes = require('./routes/cvRoutes');
 const portfolioRoutes = require('./routes/portfolioRoutes');
+const whatsappRoutes = require('./routes/whatsappRoutes');
 const homeRoutes = require('./routes/homeRoutes');
 
-app.use(express.json());
+// Middleware to parse incoming requests
+app.use(express.json()); // For application/json
+app.use(express.urlencoded({ extended: true })); // For application/x-www-form-urlencoded
+
 
 // Enable CORS middleware
 app.use((req, res, next) => {
@@ -36,6 +40,7 @@ app.use((req, res, next) => {
 app.use('/api/users', userRoutes);
 app.use('/api/cvs', cvRoutes);
 app.use('/api/portfolios', portfolioRoutes);
+app.use('/api/whatsapp', whatsappRoutes);
 app.use('/api', homeRoutes);
 app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 app.all('*', (req, res) => {

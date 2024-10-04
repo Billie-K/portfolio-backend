@@ -8,7 +8,7 @@ async function mlPdfParser(filePath) {
         const form = new FormData();
         form.append('file', fs.createReadStream(filePath));
 
-        const response = await axios.post(process.env.ML_API, form, {
+        const response = await axios.post(`${process.env.ML_API}/parse-cv`, form, {
             headers: form.getHeaders()
         });
         return response.data;
@@ -23,7 +23,7 @@ async function gptPdfParser(filePath) {
     const form = new FormData();
     form.append('file', fs.createReadStream(filePath));
 
-    const response = await axios.post(process.env.ML_API, form, {
+    const response = await axios.post(`${process.env.ML_API}/parse-cv`, form, {
       headers: form.getHeaders()
     });
 
