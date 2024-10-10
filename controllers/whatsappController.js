@@ -34,16 +34,14 @@ exports.parse = async (req, res) => {
       
       result.forEach(candidate => {
         console.log(candidate)
-        // reply += `Name: ${candidate.name},\n Email: ${candidate.email},\n Bio: ${candidate.bio},\n Phone: ${candidate.phone},\n Job Title: ${candidate.job_title},\n Skills: ${candidate.skills}\n\n`; // Added a newline for separation
-        // reply += `Name: ${candidate.name},\n Email: ${candidate.email},\n Bio: ${candidate.bio},\n Phone: ${candidate.phone},\n Job Title: ${String(candidate.job_title)},\n Skills: ${candidate.skills}\n\n`;
-        reply += `Job Title: ${candidate.job_title},\n`;
-
+        reply += `Name: ${candidate.name},\n Email: ${candidate.email},\n Bio: ${candidate.bio},\n Phone: ${candidate.phone},\n Job Title: ${candidate.job_title},\n Skills: ${candidate.skills}\n\n`; // Added a newline for separation
       });
       
       // Limit the length of the reply if it's too long, as Twilio has message length restrictions.
       if (reply.length > 1500) {
         reply = reply.substring(0, 1500) + '...'; // Truncate and indicate continuation
       }
+      console.log('Final Reply Message:', reply); 
     
       twiml.message(reply); // Send the constructed reply
     } else {
