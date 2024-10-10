@@ -19,7 +19,7 @@ exports.parse = async (req, res) => {
 
     // Step 3: Build a MongoDB query dynamically based on parsed fields
     const query = {};
-    if (parsedData.job_title) query.job_title = parsedData.job_title;
+    if (parsedData.job_title) query.job_title = { $regex: new RegExp(parsedData.job_title, 'i') };
     if (parsedData.location) query.location = parsedData.location;
     if (parsedData.experience) query.experience = { $gte: parsedData.experience };
     if (parsedData.name) query.name = { $regex: new RegExp(parsedData.name, 'i') };
@@ -33,7 +33,7 @@ exports.parse = async (req, res) => {
       let reply = 'Found the following matching candidates:\n';
       
       result.forEach(candidate => {
-        reply += `Name: ${candidate.name},\n Email: ${candidate.email},\n Phone: ${candidate.phone},\n Skills: ${candidate.skills}\n\n`; // Added a newline for separation
+        reply += `Name: ${candidate.name},\n Email: ${candidate.email},\n Bio: ${candidate.bio},\n Phone: ${candidate.phone},\n Job Title: ${candidate.job_title},\n Skills: ${candidate.skills}\n\n`; // Added a newline for separation
       });
       
       // Limit the length of the reply if it's too long, as Twilio has message length restrictions.
