@@ -35,7 +35,8 @@ exports.parse = async (req, res) => {
       result.forEach(candidate => {
         console.log(candidate)
         // reply += `Name: ${candidate.name},\n Email: ${candidate.email},\n Bio: ${candidate.bio},\n Phone: ${candidate.phone},\n Job Title: ${candidate.job_title},\n Skills: ${candidate.skills}\n\n`; // Added a newline for separation
-        reply += `Name: ${candidate.name},\n Email: ${candidate.email},\n Bio: ${candidate.bio},\n Phone: ${candidate.phone},\n Job Title: ${String(candidate.job_title)},\n Skills: ${candidate.skills}\n\n`;
+        // reply += `Name: ${candidate.name},\n Email: ${candidate.email},\n Bio: ${candidate.bio},\n Phone: ${candidate.phone},\n Job Title: ${String(candidate.job_title)},\n Skills: ${candidate.skills}\n\n`;
+        reply += `Job Title: ${candidate.job_title},\n`;
 
       });
       
