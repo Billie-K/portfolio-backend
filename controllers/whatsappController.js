@@ -33,6 +33,7 @@ exports.parse = async (req, res) => {
       let reply = 'Found the following matching candidates:\n';
       
       result.forEach(candidate => {
+        console.log(candidate)
         reply += `Name: ${candidate.name},\n Email: ${candidate.email},\n Bio: ${candidate.bio},\n Phone: ${candidate.phone},\n Job Title: ${candidate.job_title},\n Skills: ${candidate.skills}\n\n`; // Added a newline for separation
       });
       
